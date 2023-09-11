@@ -23,8 +23,7 @@ public class NewClientFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         NewClientForm newClientForm = (NewClientForm) target;
         if (clientRepository.existsByCnpj(newClientForm.cnpj())) {
-            errors.rejectValue("cnpj", "{cnpj.already.exists}");
+            errors.rejectValue("cnpj", "cnpj.already.exists");
         }
-
     }
 }
