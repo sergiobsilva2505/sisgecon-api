@@ -2,8 +2,8 @@ package br.com.sbs.sisgecon.client;
 
 import br.com.sbs.sisgecon.client.dto.ClientView;
 import br.com.sbs.sisgecon.client.dto.NewClientForm;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class ClientController {
     }
 
     @PostMapping
-    ResponseEntity<ClientView> create(@RequestBody NewClientForm newClientForm) {
+    ResponseEntity<ClientView> create(@Valid @RequestBody NewClientForm newClientForm) {
         ClientView clientView = clientService.save(newClientForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientView.id()).toUri();
 
