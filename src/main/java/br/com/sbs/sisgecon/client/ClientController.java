@@ -4,6 +4,8 @@ import br.com.sbs.sisgecon.client.dto.ClientView;
 import br.com.sbs.sisgecon.client.dto.NewClientForm;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,9 +17,16 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
+    private final NewClientFormValidator newClientFormValidator;
 
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, NewClientFormValidator newClientFormValidator) {
         this.clientService = clientService;
+        this.newClientFormValidator = newClientFormValidator;
+    }
+
+    @InitBinder("newClientForm")
+    void initBinderNewClientForm(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(newClientFormValidator);
     }
 
     @PostMapping
