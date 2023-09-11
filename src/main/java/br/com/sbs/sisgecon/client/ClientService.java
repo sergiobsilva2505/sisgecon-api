@@ -2,6 +2,7 @@ package br.com.sbs.sisgecon.client;
 
 import br.com.sbs.sisgecon.client.dto.ClientView;
 import br.com.sbs.sisgecon.client.dto.NewClientForm;
+import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,5 +28,10 @@ public class ClientService {
         List<Client> clients = clientRepository.findAll();
 
         return clients.stream().map(ClientView::new).toList();
+    }
+
+    public ClientView findById(Long id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new ControllerNotFoundException("Cliente não encontrado, id:%d".formatted(id)));
+        return new ClientView(client);
     }
 }

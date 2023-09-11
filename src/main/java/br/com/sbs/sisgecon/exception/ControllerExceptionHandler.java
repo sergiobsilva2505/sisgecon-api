@@ -38,4 +38,12 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(badRequest).body(validationError);
     }
+
+    @ExceptionHandler(ControllerNotFoundException.class)
+    ResponseEntity<StandardError> controllerNotfound(ControllerNotFoundException exception, HttpServletRequest request) {
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
+        StandardError standardError = new StandardError(notFound.value(), exception.getMessage(), Instant.now(), request.getServletPath());
+
+        return ResponseEntity.status(notFound).body(standardError);
+    }
 }

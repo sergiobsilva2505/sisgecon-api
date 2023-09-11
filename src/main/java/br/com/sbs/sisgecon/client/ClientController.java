@@ -33,6 +33,12 @@ public class ClientController {
         List<ClientView> clients = clientService.findAll();
 
         return ResponseEntity.ok(clients);
+    }
 
+    @GetMapping("/{id}")
+    ResponseEntity<ClientView> findById(@PathVariable Long id) {
+        ClientView client = clientService.findById(id);
+
+        return ResponseEntity.ok(client);
     }
 }
