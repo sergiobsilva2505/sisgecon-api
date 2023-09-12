@@ -46,4 +46,12 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(notFound).body(standardError);
     }
+
+    @ExceptionHandler(ServiceNotFoundException.class)
+    ResponseEntity<StandardError> serviceNotfound(ServiceNotFoundException exception, HttpServletRequest request) {
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
+        StandardError standardError = new StandardError(notFound.value(), exception.getMessage(), Instant.now(), request.getServletPath());
+
+        return ResponseEntity.status(notFound).body(standardError);
+    }
 }

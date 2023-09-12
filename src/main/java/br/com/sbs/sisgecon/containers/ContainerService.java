@@ -6,6 +6,10 @@ import br.com.sbs.sisgecon.containers.dto.ContainerView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
+import br.com.sbs.sisgecon.exception.ServiceNotFoundException;
+import br.com.sbs.sisgecon.exception.StandardError;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,5 +59,14 @@ public class ContainerService {
         container.toMerge(updateContainerForm);
 
         return new ContainerView(container);
+    }
+
+    public void delete(Long id) {
+        try {
+            Container container = containerRepository.getReferenceById(id);
+            containerRepository.delete(container);
+        } catch (EntityNotFoundException exception) {
+            throw new ServiceNotFoundException("Container não existe, id:%d".formatted(id));
+        }
     }
 }

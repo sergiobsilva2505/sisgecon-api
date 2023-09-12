@@ -51,6 +51,13 @@ public class ContainerController {
         return ResponseEntity.ok(containerView);
     }
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> delete(@PathVariable Long id) {
+        containerService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 
