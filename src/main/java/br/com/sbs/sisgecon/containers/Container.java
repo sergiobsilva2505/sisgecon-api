@@ -7,6 +7,9 @@ import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
 import br.com.sbs.sisgecon.containers.enums.StatusContainer;
 import br.com.sbs.sisgecon.containers.enums.TypeContainer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="containers")
@@ -15,17 +18,23 @@ public class Container {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @Pattern(regexp = "[A-Z]{4}[0-9]{7}")
     private String number;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TypeContainer typeContainer;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private StatusContainer statusContainer;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private CategoryContainer categoryContainer;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

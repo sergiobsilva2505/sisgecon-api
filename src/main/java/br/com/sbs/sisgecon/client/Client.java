@@ -1,6 +1,7 @@
 package br.com.sbs.sisgecon.client;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "clients")
@@ -9,8 +10,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     @Column(length = 100)
     private String name;
+
+    @NotBlank
     @Column(length = 14)
     private String cnpj;
 
