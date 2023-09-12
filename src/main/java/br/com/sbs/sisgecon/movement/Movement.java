@@ -38,6 +38,11 @@ public class Movement {
         this.container = container;
     }
 
+    public void finish() {
+        this.finishDate = LocalDateTime.now();
+        this.statusMovement = StatusMovement.FINISHED;
+    }
+
     public Long getId() {
         return id;
     }

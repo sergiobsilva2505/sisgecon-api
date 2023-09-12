@@ -29,4 +29,13 @@ public class MovementService {
 
         return new MovementView(movement, container);
     }
+
+    @Transactional
+    public MovementView finish(Long id) {
+        Movement movement = movementRepository.findById(id)
+                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
+        movement.finish();
+
+        return new MovementView(movement, movement.getContainer());
+    }
 }
