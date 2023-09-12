@@ -3,7 +3,9 @@ package br.com.sbs.sisgecon.containers;
 import br.com.sbs.sisgecon.containers.dto.ContainerView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,13 +17,20 @@ import java.util.List;
 public class ContainerController {
 
     private final ContainerService containerService;
+    private final NewContainerFormValidator newContainerFormValidator;
 
-    public ContainerController(ContainerService containerService) {
+    public ContainerController(ContainerService containerService, NewContainerFormValidator newContainerFormValidator) {
         this.containerService = containerService;
+        this.newContainerFormValidator = newContainerFormValidator;
+    }
+
+    @InitBinder("newContainerForm")
+    void initBinderNewContainerForm(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(newContainerFormValidator);
     }
 
     @PostMapping
-    ResponseEntity<ContainerView> create(@RequestBody NewContainerForm newContainerForm) {
+    ResponseEntity<ContainerView> create(@Valid @RequestBody NewContainerForm newContainerForm) {
         ContainerView containerView = containerService.save(newContainerForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(containerView.id()).toUri();
 
@@ -33,7 +42,6 @@ public class ContainerController {
         List<ContainerView> containerView = containerService.findAll();
 
         return ResponseEntity.ok(containerView);
-
     }
 
     @RequestMapping("/{id}")
@@ -41,11 +49,10 @@ public class ContainerController {
         ContainerView containerView = containerService.findById(id);
 
         return ResponseEntity.ok(containerView);
-
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<ContainerView> edit(@PathVariable Long id, @RequestBody UpdateContainerForm updateContainerForm) {
+    ResponseEntity<ContainerView> edit(@PathVariable Long id, @Valid @RequestBody UpdateContainerForm updateContainerForm) {
         ContainerView containerView = containerService.update(id, updateContainerForm);
 
         return ResponseEntity.ok(containerView);
@@ -57,8 +64,5 @@ public class ContainerController {
 
         return ResponseEntity.noContent().build();
     }
-
-
-
 
 }

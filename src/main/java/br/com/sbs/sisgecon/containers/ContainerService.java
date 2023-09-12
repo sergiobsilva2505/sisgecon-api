@@ -7,9 +7,7 @@ import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
 import br.com.sbs.sisgecon.exception.ServiceNotFoundException;
-import br.com.sbs.sisgecon.exception.StandardError;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
