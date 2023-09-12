@@ -1,6 +1,8 @@
 package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.client.Client;
+import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
+import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
 import br.com.sbs.sisgecon.containers.enums.StatusContainer;
 import br.com.sbs.sisgecon.containers.enums.TypeContainer;
@@ -37,6 +39,13 @@ public class Container {
         this.statusContainer = statusContainer;
         this.categoryContainer = categoryContainer;
         this.client = client;
+    }
+
+    public void toMerge(UpdateContainerForm updateContainerForm) {
+        this.number = updateContainerForm.number();
+        this.typeContainer = updateContainerForm.typeContainer();
+        this.statusContainer = updateContainerForm.statusContainer();
+        this.categoryContainer = updateContainerForm.categoryContainer();
     }
 
     public Long getId() {

@@ -2,6 +2,7 @@ package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.containers.dto.ContainerView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
+import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,6 +42,13 @@ public class ContainerController {
 
         return ResponseEntity.ok(containerView);
 
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<ContainerView> edit(@PathVariable Long id, @RequestBody UpdateContainerForm updateContainerForm) {
+        ContainerView containerView = containerService.update(id, updateContainerForm);
+
+        return ResponseEntity.ok(containerView);
     }
 
 
