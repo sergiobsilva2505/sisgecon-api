@@ -2,9 +2,11 @@ package br.com.sbs.sisgecon.movement;
 
 import br.com.sbs.sisgecon.containers.Container;
 import br.com.sbs.sisgecon.containers.ContainerRepository;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
+import br.com.sbs.sisgecon.movement.dto.MovementForm;
+import br.com.sbs.sisgecon.movement.dto.MovementView;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MovementService {
@@ -15,5 +17,16 @@ public class MovementService {
     public MovementService(MovementRepository movementRepository, ContainerRepository containerRepository) {
         this.movementRepository = movementRepository;
         this.containerRepository = containerRepository;
+    }
+
+    @Transactional
+    public MovementView create(MovementForm movementForm) {
+        Container container = containerRepository.findById(movementForm.containerId())
+                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(movementForm.containerId())));
+
+        Movement movement = movementForm.toEntity(container);
+        movement = movementRepository.save(movement);
+
+        return new MovementView(movement, container);
     }
 }

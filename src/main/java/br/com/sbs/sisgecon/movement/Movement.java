@@ -34,7 +34,7 @@ public class Movement {
         this.typeMovement = typeMovement;
         this.initialDate = LocalDateTime.now();
         this.finishDate = null;
-        this.statusMovement = null;
+        this.statusMovement = StatusMovement.IN_PROGRESS;
         this.container = container;
     }
 
