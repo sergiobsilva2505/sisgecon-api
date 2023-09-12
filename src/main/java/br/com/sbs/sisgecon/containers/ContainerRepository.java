@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 public interface ContainerRepository extends JpaRepository<Container, Long> {
 
     boolean existsByNumber(String number);
+
+    boolean existsByNumberAndIdNot(String number, Long id);
+
 }

@@ -18,15 +18,22 @@ public class ContainerController {
 
     private final ContainerService containerService;
     private final NewContainerFormValidator newContainerFormValidator;
+    private final UpdateContainerFormValidator updateContainerFormValidator;
 
-    public ContainerController(ContainerService containerService, NewContainerFormValidator newContainerFormValidator) {
+    public ContainerController(ContainerService containerService, NewContainerFormValidator newContainerFormValidator, UpdateContainerFormValidator updateContainerFormValidator) {
         this.containerService = containerService;
         this.newContainerFormValidator = newContainerFormValidator;
+        this.updateContainerFormValidator = updateContainerFormValidator;
     }
 
     @InitBinder("newContainerForm")
     void initBinderNewContainerForm(WebDataBinder webDataBinder){
         webDataBinder.addValidators(newContainerFormValidator);
+    }
+
+    @InitBinder("updateContainerForm")
+    void initBinderUpdateContainerForm(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(updateContainerFormValidator);
     }
 
     @PostMapping
