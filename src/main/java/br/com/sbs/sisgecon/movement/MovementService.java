@@ -7,6 +7,9 @@ import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+
+import java.util.List;
 
 @Service
 public class MovementService {
@@ -30,11 +33,28 @@ public class MovementService {
         return new MovementView(movement, container);
     }
 
+    @Transactional(readOnly = true)
+    public List<MovementView> findAll() {
+
+        List<Movement> movements = movementRepository.findAll();
+
+        return movements.stream()
+                .map(movement -> new MovementView(movement, movement.getContainer()))
+                .toList();
+    }
+
     @Transactional
     public MovementView finish(Long id) {
         Movement movement = movementRepository.findById(id)
                 .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
         movement.finish();
+
+        return new MovementView(movement, movement.getContainer());
+    }
+
+    public MovementView findById(Long id) {
+        Movement movement = movementRepository.findById(id)
+                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
 
         return new MovementView(movement, movement.getContainer());
     }

@@ -1,7 +1,6 @@
 package br.com.sbs.sisgecon.movement.dto;
 
 import br.com.sbs.sisgecon.containers.Container;
-import br.com.sbs.sisgecon.containers.dto.ContainerView;
 import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
 import br.com.sbs.sisgecon.containers.enums.StatusContainer;
 import br.com.sbs.sisgecon.containers.enums.TypeContainer;
@@ -23,6 +22,7 @@ public record MovementView(Long id,
                            String clientName) {
 
     public MovementView(Movement movement, Container container) {
-        this(movement.getId(), movement.getTypeMovement(), movement.getInitialDate(), movement.getFinishDate(), movement.getStatusMovement(), container.getNumber(), container.getTypeContainer(), container.getStatusContainer(), container.getCategoryContainer(), container.getClientName());
+        this(movement.getId(), movement.getTypeMovement(), movement.getInitialDate(), movement.getFinishDate(),
+                movement.getStatusMovement(), container.getNumber(), container.getTypeContainer(), container.getStatusContainer(), container.getCategoryContainer(), container.getClientName());
     }
 }
