@@ -59,6 +59,7 @@ public class ContainerService {
         return new ContainerView(container);
     }
 
+    @Transactional
     public void delete(Long id) {
         try {
             Container container = containerRepository.getReferenceById(id);

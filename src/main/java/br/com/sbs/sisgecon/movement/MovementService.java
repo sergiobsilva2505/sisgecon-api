@@ -7,7 +7,6 @@ import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -60,6 +59,7 @@ public class MovementService {
         return new MovementView(movement, movement.getContainer());
     }
 
+    @Transactional
     public void delete(Long id) {
         Movement movement = movementRepository.findById(id)
                 .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
