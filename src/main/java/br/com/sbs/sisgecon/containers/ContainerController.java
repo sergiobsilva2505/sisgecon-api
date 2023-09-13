@@ -1,6 +1,7 @@
 package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.containers.dto.ContainerView;
+import br.com.sbs.sisgecon.containers.dto.ContainerWithMovementsView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import jakarta.validation.Valid;
@@ -72,4 +73,10 @@ public class ContainerController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{number}/movements")
+    ResponseEntity<ContainerWithMovementsView> getMovementsByContainer(@PathVariable String number) {
+        ContainerWithMovementsView container = containerService.findByContainer(number);
+
+        return ResponseEntity.ok(container);
+    }
 }

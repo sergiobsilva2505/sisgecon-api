@@ -3,10 +3,14 @@ package br.com.sbs.sisgecon.containers;
 import br.com.sbs.sisgecon.client.Client;
 import br.com.sbs.sisgecon.client.ClientRepository;
 import br.com.sbs.sisgecon.containers.dto.ContainerView;
+import br.com.sbs.sisgecon.containers.dto.ContainerWithMovementsView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
 import br.com.sbs.sisgecon.exception.ServiceNotFoundException;
+import br.com.sbs.sisgecon.movement.Movement;
+import br.com.sbs.sisgecon.movement.MovementRepository;
+import br.com.sbs.sisgecon.movement.dto.MovementViewByContainer;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +22,12 @@ public class ContainerService {
 
     private final ContainerRepository containerRepository;
     private final ClientRepository clientRepository;
+    private final MovementRepository movementRepository;
 
-    public ContainerService(ContainerRepository containerRepository, ClientRepository clientRepository) {
+    public ContainerService(ContainerRepository containerRepository, ClientRepository clientRepository, MovementRepository movementRepository) {
         this.containerRepository = containerRepository;
         this.clientRepository = clientRepository;
+        this.movementRepository = movementRepository;
     }
 
     @Transactional
@@ -67,5 +73,14 @@ public class ContainerService {
         } catch (EntityNotFoundException exception) {
             throw new ServiceNotFoundException("Container não existe, id:%d".formatted(id));
         }
+    }
+
+    public ContainerWithMovementsView findByContainer(String number) {
+        Container container = containerRepository.findByNumber(number)
+                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, number:%s".formatted(number)));
+        List<Movement> movements = movementRepository.findAllByContainerId(container.getId());
+        List<MovementViewByContainer> movementsView = movements.stream().map(MovementViewByContainer::new).toList();
+
+        return new ContainerWithMovementsView(container, movementsView);
     }
 }
