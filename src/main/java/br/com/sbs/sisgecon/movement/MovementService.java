@@ -43,6 +43,14 @@ public class MovementService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public MovementView findById(Long id) {
+        Movement movement = movementRepository.findById(id)
+                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
+
+        return new MovementView(movement, movement.getContainer());
+    }
+
     @Transactional
     public MovementView finish(Long id) {
         Movement movement = movementRepository.findById(id)
@@ -52,10 +60,10 @@ public class MovementService {
         return new MovementView(movement, movement.getContainer());
     }
 
-    public MovementView findById(Long id) {
+    public void delete(Long id) {
         Movement movement = movementRepository.findById(id)
                 .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
 
-        return new MovementView(movement, movement.getContainer());
+        movementRepository.delete(movement);
     }
 }

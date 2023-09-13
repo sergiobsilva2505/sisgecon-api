@@ -42,10 +42,17 @@ public class MovementController {
     }
 
     @PutMapping("/{id}/finish")
-    ResponseEntity<MovementView> finishMovement(@PathVariable Long id) {
+    ResponseEntity<MovementView> finish(@PathVariable Long id) {
         MovementView movementView =  movementService.finish(id);
 
         return ResponseEntity.ok(movementView);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> delete(@PathVariable Long id) {
+        movementService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 
