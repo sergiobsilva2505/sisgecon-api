@@ -2,6 +2,7 @@ package br.com.sbs.sisgecon.movement;
 
 import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,7 +21,7 @@ public class MovementController {
     }
 
     @PostMapping
-    ResponseEntity<MovementView> createMovement(@RequestBody MovementForm movementForm) {
+    ResponseEntity<MovementView> createMovement(@Valid @RequestBody MovementForm movementForm) {
         MovementView movementView =  movementService.create(movementForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(movementView.id()).toUri();
 
@@ -54,6 +55,4 @@ public class MovementController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 }

@@ -4,6 +4,7 @@ import br.com.sbs.sisgecon.containers.Container;
 import br.com.sbs.sisgecon.movement.enums.StatusMovement;
 import br.com.sbs.sisgecon.movement.enums.TypeMovement;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -14,16 +15,20 @@ public class Movement {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
+
     @Enumerated(EnumType.STRING)
+    @NotNull
     private TypeMovement typeMovement;
 
     private LocalDateTime initialDate;
     private LocalDateTime finishDate;
+
     @Enumerated(EnumType.STRING)
     private StatusMovement statusMovement;
 
     @ManyToOne
     @JoinColumn(name = "container_id")
+    @NotNull
     private Container container;
 
     @Deprecated
