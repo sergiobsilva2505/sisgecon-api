@@ -2,6 +2,7 @@ package br.com.sbs.sisgecon.movement;
 
 import br.com.sbs.sisgecon.containers.Container;
 import br.com.sbs.sisgecon.containers.ContainerRepository;
+import br.com.sbs.sisgecon.containers.ContainersProjection;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
 import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
@@ -67,7 +68,10 @@ public class MovementService {
         movementRepository.delete(movement);
     }
 
-    public List<MovementsProjection> getQuantityOfMovementsByTypeAndClient() {
-        return movementRepository.getQuantityOfMovements();
+    public MovementsReport buildReport() {
+        List<ContainersProjection> quantityOfImportsAndExports = containerRepository.getQuantityOfImportsAndExports();
+        List<MovementsProjection> quantityOfMovements = movementRepository.getQuantityOfMovements();
+
+        return new MovementsReport(quantityOfImportsAndExports, quantityOfMovements);
     }
 }

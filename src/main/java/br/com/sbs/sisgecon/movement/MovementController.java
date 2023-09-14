@@ -57,9 +57,9 @@ public class MovementController {
     }
 
     @GetMapping("/report")
-    ResponseEntity<List<MovementsProjection>> getReport() {
-        List<MovementsProjection> movements =  movementService.getQuantityOfMovementsByTypeAndClient();
+    ResponseEntity<MovementsReport> getReport() {
+        MovementsReport report = movementService.buildReport();
 
-        return ResponseEntity.ok(movements);
+        return ResponseEntity.ok(report);
     }
 }
