@@ -55,4 +55,11 @@ public class MovementController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/report")
+    ResponseEntity<List<MovementsProjection>> getReport() {
+        List<MovementsProjection> movements =  movementService.getQuantityOfMovementsByTypeAndClient();
+
+        return ResponseEntity.ok(movements);
+    }
 }

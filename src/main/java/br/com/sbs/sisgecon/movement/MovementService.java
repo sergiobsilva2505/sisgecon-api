@@ -66,4 +66,8 @@ public class MovementService {
 
         movementRepository.delete(movement);
     }
+
+    public List<MovementsProjection> getQuantityOfMovementsByTypeAndClient() {
+        return movementRepository.getQuantityOfMovements();
+    }
 }
