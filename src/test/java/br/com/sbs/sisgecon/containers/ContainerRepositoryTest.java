@@ -1,9 +1,9 @@
 package br.com.sbs.sisgecon.containers;
 
-import br.com.sbs.sisgecon.client.Client;
-import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
-import br.com.sbs.sisgecon.containers.enums.StatusContainer;
-import br.com.sbs.sisgecon.containers.enums.TypeContainer;
+import br.com.sbs.sisgecon.client.ClientRepository;
+import br.com.sbs.sisgecon.movement.MovementRepository;
+import br.com.sbs.sisgecon.util.ProgramingDatabaseMotherTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,34 +24,55 @@ import static org.assertj.core.api.Assertions.*;
 public class ContainerRepositoryTest {
 
     @Autowired
-    private ContainerRepository containerRepository;
-    
+    private ClientRepository clientRepository;
     @Autowired
-    public TestEntityManager testEntityManager;
+    private ContainerRepository containerRepository;
+    @Autowired
+    private MovementRepository movementRepository;
 
-    @Test
-    public void findByNumber__should_return_an_optional_when_the_container_number_is_found() {
-        Client client = new Client("Lucca e Joana Entulhos ME", "48247711000191");
-        Container container = new Container("ZZZU9876543", TypeContainer.TWENTY, StatusContainer.FULL, CategoryContainer.IMPORT, client);
-        testEntityManager.persist(client);
-        testEntityManager.persist(container);
+    @Autowired
+    private TestEntityManager testEntityManager;
 
-        String number = "ZZZU9876543";
-        Optional<Container> optional = containerRepository.findByNumber(number);
-
-        assertThat(optional).isPresent();
-        assertThat(optional.get().getNumber()).isEqualTo(container.getNumber());
+    @Before
+    public void setUp() throws Exception {
+        ProgramingDatabaseMotherTest programingDatabaseMotherTest =
+                new ProgramingDatabaseMotherTest(clientRepository, containerRepository, movementRepository);
+        programingDatabaseMotherTest.create();
     }
 
     @Test
-    public void findByNumber__should_return_an_empty_optional_when_the_container_number_is_not_found() {
-        Client client = new Client("Lucca e Joana Entulhos ME", "48247711000191");
-        Container container = new Container("ZZZU9876543", TypeContainer.TWENTY, StatusContainer.FULL, CategoryContainer.IMPORT, client);
-        testEntityManager.persist(client);
-        testEntityManager.persist(container);
+    public void existsByNumber__should_return_a_when_container_exists_or_not() {
+        String number = "TEXU1234568";
+        boolean exists = containerRepository.existsByNumber(number);
 
-        String number = "ABCU9876543";
+        assertThat(exists).isTrue();
+
+        number = "TEXU0008111";
+        exists = containerRepository.existsByNumber(number);
+
+        assertThat(exists).isFalse();
+    }
+
+    @Test
+    public void existsByNumberAndIdNot__should_return_true_when_container_already_exists() {
+
+        boolean exists = containerRepository.existsByNumberAndIdNot("GAZU3698741", null);
+        assertThat(exists).isFalse();
+
+        exists = containerRepository.existsByNumberAndIdNot("GAZU3698741", 5L);
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    public void findByNumber__should_return_an_optional_when_the_container_number_is_found() {
+        String number = "TEXU1234568";
         Optional<Container> optional = containerRepository.findByNumber(number);
+
+        assertThat(optional).isPresent();
+        assertThat(number).isEqualTo(optional.get().getNumber());
+
+        number = "ABCU9876543";
+        optional = containerRepository.findByNumber(number);
 
         assertThat(optional).isEmpty();
     }
