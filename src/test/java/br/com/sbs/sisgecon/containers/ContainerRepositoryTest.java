@@ -9,13 +9,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 
+import static br.com.sbs.sisgecon.containers.enums.CategoryContainer.EXPORT;
+import static br.com.sbs.sisgecon.containers.enums.CategoryContainer.IMPORT;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -30,11 +33,8 @@ public class ContainerRepositoryTest {
     @Autowired
     private MovementRepository movementRepository;
 
-    @Autowired
-    private TestEntityManager testEntityManager;
-
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ProgramingDatabaseMotherTest programingDatabaseMotherTest =
                 new ProgramingDatabaseMotherTest(clientRepository, containerRepository, movementRepository);
         programingDatabaseMotherTest.create();
@@ -75,5 +75,17 @@ public class ContainerRepositoryTest {
         optional = containerRepository.findByNumber(number);
 
         assertThat(optional).isEmpty();
+    }
+
+    @Test
+    public void getQuantityOfImportsAndExports__must_return_the_total_import_and_export_containers() {
+        List<ContainersProjection> quantityOfImportsAndExports = containerRepository.getQuantityOfImportsAndExports();
+
+        assertThat(quantityOfImportsAndExports)
+                .extracting(ContainersProjection::getCategoryContainer, ContainersProjection::getQuantityOfContainers)
+                .containsAnyOf(
+                        tuple(IMPORT, 8),
+                        tuple(EXPORT, 2)
+                );
     }
 }

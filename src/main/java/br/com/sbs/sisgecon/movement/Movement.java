@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Movement {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -33,6 +33,14 @@ public class Movement {
 
     @Deprecated
     public Movement() {
+    }
+
+    public Movement(TypeMovement typeMovement, LocalDateTime initialDate, LocalDateTime finishDate, StatusMovement statusMovement, Container container) {
+        this.typeMovement = typeMovement;
+        this.initialDate = initialDate;
+        this.finishDate = finishDate;
+        this.statusMovement = statusMovement;
+        this.container = container;
     }
 
     public Movement(TypeMovement typeMovement, Container container) {
