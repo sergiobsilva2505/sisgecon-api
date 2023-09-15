@@ -20,7 +20,7 @@ São requisitos funcionais da aplicação:
 
  - Não é um requisito funcional, a aplicação ter uma entidade cliente, porém achei melhor modelar porque ficaria melhor tanto pra gerar o relatório como pra não gerar inconsistencias.
  - O inicio e o fim de uma movimentação, não estão no formulario, porque a hora de inicio é setada no construtor, e a finalização, quando ocorre uma requisição para o enpoint `/movements/{id}/finish`.
- - Para os tipos de movimentação, o tipo `pesagem` foi dividido em dois, `pesagem de entrada` e `pesagem de saida`, pois porque acredito que o container é pesado quando chega e quando sai.
+ - Para os tipos de movimentação, o tipo `pesagem` foi dividido em dois, `pesagem de entrada` e `pesagem de saida`, pois acredito que o container é pesado quando chega e quando sai.
  - O `Status da movimentação` foi criado para definir o inicio e o fim de uma movimentação, porque uma operação como reposionamento pode demorar e se alguém busca o container no sistema, já vai saber que ele está sendo movimentado.
  - Na pasta `src/main/resources` se encontra o arquivo `data.sql`, com alguns inserts para o banco de dados.
 
