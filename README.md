@@ -329,5 +329,276 @@
         ```      
   </details>  
 
+- ### API de Movimentações:
 
+  <details>
+    <summary>Cadastrar um movimentação</summary>
 
+    - POST: http://localhost:8080/movements/
+      - Request:
+        ```bash
+          curl -X POST 'localhost:8080/movements' \
+          -H 'Content-Type: application/json' \
+          --data '{
+            "movementType": "GATE_IN",
+            "containerId": 15
+          }'
+        ```
+      - Response 201:
+        ```json
+        {
+          "id": 192,
+          "movementType": "GATE_IN",
+          "initialDate": "2023-09-15T02:42:38.370812847",
+          "finishDate": null,
+          "movementStatus": "IN_PROGRESS",
+          "containerNumber": "ASQU1478963",
+          "containerType": "TWENTY",
+          "containerStatus": "FULL",
+          "containerCategory": "EXPORT",
+          "clientName": "Vitor e Regina Financeira ME"
+        }
+        ```
+      - Response 400
+        ```json
+          {
+            "status": 400,
+            "message": "ocorreu um ou mais erros de validação",
+            "timestamp": "2023-09-15T05:47:00.537266568Z",
+            "path": "/movements",
+            "invalidParams": [
+              {
+                  "field": "containerId",
+                  "message": "não deve ser nulo"
+              },
+              {
+                  "field": "movementType",
+                  "message": "não deve ser nulo"
+              }
+            ]
+          }
+        ```
+  </details>
+  <details>
+    <summary>Buscar uma movimentação</summary>
+
+    - GET: http://localhost:8080/movements/{id} *(id da movimentação buscado)*
+      - Request
+        ```bash
+          curl -X GET 'localhost:8080/movements/3'
+        ```
+      - Response 200
+        ```json
+          {
+            "id": 3,
+            "movementType": "GATE_IN",
+            "initialDate": "2023-09-12T20:37:58",
+            "finishDate": "2023-09-12T20:37:58",
+            "movementStatus": "FINISHED",
+            "containerNumber": "TEMU9871236",
+            "containerType": "TWENTY",
+            "containerStatus": "FULL",
+            "containerCategory": "IMPORT",
+            "clientName": "César e Pedro Henrique Casa Noturna Ltda"
+          }
+        ```
+      - Response 404
+        ```json
+          {
+            "status": 404,
+            "message": "Container não encontrado, id:300",
+            "timestamp": "2023-09-15T05:51:45.656093892Z",
+            "path": "/movements/300"
+          }
+        ```
+  </details>
+  <details>
+    <summary>Buscar todos os Movimentações</summary>
+
+    - GET: http://localhost:8080/movements
+      - Request:
+        ```bash
+          curl -X GET 'localhost:8080/movements'
+        ```
+      - Response 200
+        ```json
+          [
+            {
+              "id": 1,
+              "movementType": "GATE_IN",
+              "initialDate": "2023-09-12T20:37:58",
+              "finishDate": "2023-09-12T20:37:58",
+              "movementStatus": "FINISHED",
+              "containerNumber": "TEMU7531669",
+              "containerType": "TWENTY",
+              "containerStatus": "EMPTY",
+              "containerCategory": "IMPORT",
+              "clientName": "Caleb e Rayssa Adega ME"
+            },
+            {
+              "id": 3,
+              "movementType": "GATE_IN",
+              "initialDate": "2023-09-12T20:37:58",
+              "finishDate": "2023-09-12T20:37:58",
+              "movementStatus": "FINISHED",
+              "containerNumber": "TEMU9871236",
+              "containerType": "TWENTY",
+              "containerStatus": "FULL",
+              "containerCategory": "IMPORT",
+              "clientName": "César e Pedro Henrique Casa Noturna Ltda"
+            }
+          ]
+        ```
+  </details>
+  <details>
+    <summary>Atualizar um movimentação</summary>
+
+    - PUT: http://localhost:8080/movements/{id} *(id da movimentação a ser atualizado)*
+      - Request:
+        ```bash
+          curl -X PUT 'localhost:8080/movements/192/finish' \
+          -H 'Content-Type: application/json' \
+          --data ''
+        ```
+      - Response 200:
+        ```json
+          {
+            "id": 192,
+            "movementType": "GATE_IN",
+            "initialDate": "2023-09-15T02:42:38",
+            "finishDate": "2023-09-15T02:55:55.648013882",
+            "movementStatus": "FINISHED",
+            "containerNumber": "ASQU1478963",
+            "containerType": "TWENTY",
+            "containerStatus": "FULL",
+            "containerCategory": "EXPORT",
+            "clientName": "Vitor e Regina Financeira ME"
+          }
+        ```
+      - Response 404
+        ```json
+          {
+            "status": 404,
+            "message": "Container não encontrado, id:392",
+            "timestamp": "2023-09-15T05:56:45.346566111Z",
+            "path": "/movements/392/finish"
+          }
+        ```
+  </details>
+  <details>
+    <summary>Deletar um movimentação</summary>
+
+    - DELETE: http://localhost:8080/movements/{id} *(id da movimentação a ser deletado)*
+        - Exemplo de requisição:
+          ```bash
+            curl -X DELETE 'localhost:8080/movements/1'
+          ```
+        - Exemplo de retorno em caso de sucesso:
+          ```json
+            {}
+          ```
+        - Response 404
+          ```json
+            {
+              "status": 404,
+              "message": "Movimentação não encontrada, id:2",
+              "timestamp": "2023-09-15T06:00:17.613353786Z",
+              "path": "/movements/2"
+            }
+          ```
+  </details>
+  <details>
+    <summary>Buscar movimentações de um container</summary>
+
+    - POST: http://localhost:8080/containers/{number}/movements *(number do container a ser buscado)*
+      - Request:
+        ```bash
+          curl -X POST 'localhost:8080/containers/TGBU9873214/movements' \
+          -H 'Content-Type: application/json' \
+          --data ''
+        ```
+      - Response 201:
+        ```json
+          {
+            "id": 21,
+            "number": "TGBU9873214",
+            "containerType": "TWENTY",
+            "containerStatus": "FULL",
+            "containerCategory": "EXPORT",
+            "movements": [
+              {
+                "id": 21,
+                "movementType": "GATE_IN",
+                "initialDate": "2023-09-12T20:37:58",
+                "finishDate": "2023-09-12T20:37:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 42,
+                "movementType": "GATE_OUT",
+                "initialDate": "2023-10-12T15:27:58",
+                "finishDate": "2023-10-12T19:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 63,
+                "movementType": "REPOSITIONING",
+                "initialDate": "2023-10-12T15:27:58",
+                "finishDate": "2023-10-12T19:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 84,
+                "movementType": "IN_WEIGHING",
+                "initialDate": "2023-09-12T20:37:58",
+                "finishDate": "2023-09-12T21:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 105,
+                "movementType": "OUT_WEIGHING",
+                "initialDate": "2023-09-13T09:37:58",
+                "finishDate": "2023-09-13T10:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 126,
+                "movementType": "SCANNER",
+                "initialDate": "2023-10-12T11:27:58",
+                "finishDate": "2023-10-12T11:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 147,
+                "movementType": "LOADING",
+                "initialDate": "2023-10-12T15:27:58",
+                "finishDate": "2023-10-12T19:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 168,
+                "movementType": "SHIPPING",
+                "initialDate": "2023-10-12T15:27:58",
+                "finishDate": "2023-10-12T19:45:58",
+                "movementStatus": "FINISHED"
+              },
+              {
+                "id": 189,
+                "movementType": "UNLOAD",
+                "initialDate": "2023-10-12T15:27:58",
+                "finishDate": "2023-10-12T19:45:58",
+                "movementStatus": "FINISHED"
+              }
+            ]
+          }
+        ```
+      - Response 400
+        ```json
+         {
+            "status": 404,
+            "message": "Container não encontrado, number:TGBU6663214",
+            "timestamp": "2023-09-15T06:13:11.556314911Z",
+            "path": "/containers/TGBU6663214/movements"
+          }
+        ```
+  </details>
