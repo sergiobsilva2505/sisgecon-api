@@ -56,8 +56,8 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(notFound).body(standardError);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    ResponseEntity<StandardError> databaseViolation(DataIntegrityViolationException exception, HttpServletRequest request) {
+    @ExceptionHandler(DatabaseException.class)
+    ResponseEntity<StandardError> databaseViolation(DatabaseException exception, HttpServletRequest request) {
         HttpStatus notFound = HttpStatus.NOT_FOUND;
         StandardError standardError = new StandardError(notFound.value(), exception.getMessage(), Instant.now(), request.getServletPath());
 
