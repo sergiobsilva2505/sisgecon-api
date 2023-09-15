@@ -1,4 +1,21 @@
-# sisgecon-api
+# SISGECON - API 
+
+São requisitos funcionais da aplicação:
+
+1. Crud de Contêiner
+    1. Cliente
+    2. Número do contêiner (4 letras e 7 números. Ex: TEST1234567)
+    3. Tipo: 20 / 40
+    4. Status: Cheio / Vazio
+    5. Categoria: Importação / Exportação
+2. Crud de Movimentações
+    1. Tipo de Movimentação (embarque, descarga, gate in, gate out, reposicionamento, pesagem, scanner
+    2. Data e Hora do Início
+    3. Data e Hora do Fim
+3. Relatório com o total de movimentações agrupadas por cliente e tipo de movimentação.
+    1. No ﬁnal do relatório deverá conter um sumário com o total de importação /
+    exportação.
+     
 
 ## Tecnologias
 
