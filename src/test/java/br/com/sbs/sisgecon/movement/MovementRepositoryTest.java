@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static br.com.sbs.sisgecon.movement.enums.TypeMovement.*;
+import static br.com.sbs.sisgecon.movement.enums.MovementType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
@@ -40,11 +40,10 @@ public class MovementRepositoryTest {
 
     @Test
     public void getQuantityOfMovements() {
-
         List<MovementsProjection> quantityOfMovements = movementRepository.getQuantityOfMovements();
 
         assertThat(quantityOfMovements)
-                .extracting(MovementsProjection::getClientName, MovementsProjection::getTypeMovement, MovementsProjection::getMovementsCount)
+                .extracting(MovementsProjection::getClientName, MovementsProjection::getMovementType, MovementsProjection::getMovementsCount)
                 .containsAnyOf(
                         tuple("Daniel e Heitor Telecomunicações ME", GATE_IN, 2),
                         tuple("Caleb e Rayssa Adega ME", REPOSITIONING, 3),

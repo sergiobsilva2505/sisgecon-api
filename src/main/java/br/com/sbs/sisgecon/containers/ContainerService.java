@@ -7,11 +7,13 @@ import br.com.sbs.sisgecon.containers.dto.ContainerWithMovementsView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
+import br.com.sbs.sisgecon.exception.DatabaseException;
 import br.com.sbs.sisgecon.exception.ServiceNotFoundException;
 import br.com.sbs.sisgecon.movement.Movement;
 import br.com.sbs.sisgecon.movement.MovementRepository;
 import br.com.sbs.sisgecon.movement.dto.MovementViewByContainer;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,6 +74,8 @@ public class ContainerService {
             containerRepository.delete(container);
         } catch (EntityNotFoundException exception) {
             throw new ServiceNotFoundException("Container não existe, id:%d".formatted(id));
+        } catch (DataIntegrityViolationException exception) {
+            throw new DatabaseException("Violação de integridade da base");
         }
     }
 

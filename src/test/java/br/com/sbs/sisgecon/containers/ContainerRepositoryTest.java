@@ -2,7 +2,6 @@ package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.client.ClientRepository;
 import br.com.sbs.sisgecon.movement.MovementRepository;
-import br.com.sbs.sisgecon.movement.MovementsProjection;
 import br.com.sbs.sisgecon.util.ProgramingDatabaseMotherTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.sbs.sisgecon.containers.enums.CategoryContainer.EXPORT;
-import static br.com.sbs.sisgecon.containers.enums.CategoryContainer.IMPORT;
+import static br.com.sbs.sisgecon.containers.enums.ContainerCategory.EXPORT;
+import static br.com.sbs.sisgecon.containers.enums.ContainerCategory.IMPORT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
@@ -80,11 +79,11 @@ public class ContainerRepositoryTest {
 
     @Test
     public void getQuantityOfImportsAndExports__must_return_the_total_import_and_export_containers() {
-        List<MovementsProjection> quantityOfImportsAndExports = movementRepository.getQuantityOfMovements();
+        List<ContainersProjection> quantityOfImportsAndExports = containerRepository.getQuantityOfImportsAndExports();
 
         assertThat(quantityOfImportsAndExports).hasSize(2);
         assertThat(quantityOfImportsAndExports)
-                .extracting(MovementsProjection::getClientName, MovementsProjection::getMovementsCount, MovementsProjection::getTypeMovement)
+                .extracting(ContainersProjection::getContainerCategory, ContainersProjection::getQuantityOfContainers)
                 .containsExactly(
                         tuple(IMPORT, 4),
                         tuple(EXPORT, 2)

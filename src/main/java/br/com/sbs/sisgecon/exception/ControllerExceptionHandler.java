@@ -3,6 +3,7 @@ package br.com.sbs.sisgecon.exception;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -49,6 +50,14 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(ServiceNotFoundException.class)
     ResponseEntity<StandardError> serviceNotfound(ServiceNotFoundException exception, HttpServletRequest request) {
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
+        StandardError standardError = new StandardError(notFound.value(), exception.getMessage(), Instant.now(), request.getServletPath());
+
+        return ResponseEntity.status(notFound).body(standardError);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    ResponseEntity<StandardError> databaseViolation(DataIntegrityViolationException exception, HttpServletRequest request) {
         HttpStatus notFound = HttpStatus.NOT_FOUND;
         StandardError standardError = new StandardError(notFound.value(), exception.getMessage(), Instant.now(), request.getServletPath());
 

@@ -1,24 +1,24 @@
 package br.com.sbs.sisgecon.movement.dto;
 
 import br.com.sbs.sisgecon.containers.Container;
-import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
-import br.com.sbs.sisgecon.containers.enums.StatusContainer;
-import br.com.sbs.sisgecon.containers.enums.TypeContainer;
+import br.com.sbs.sisgecon.containers.enums.ContainerCategory;
+import br.com.sbs.sisgecon.containers.enums.ContainerStatus;
+import br.com.sbs.sisgecon.containers.enums.ContainerType;
 import br.com.sbs.sisgecon.movement.Movement;
-import br.com.sbs.sisgecon.movement.enums.StatusMovement;
-import br.com.sbs.sisgecon.movement.enums.TypeMovement;
+import br.com.sbs.sisgecon.movement.enums.MovementStatus;
+import br.com.sbs.sisgecon.movement.enums.MovementType;
 
 import java.time.LocalDateTime;
 
 public record MovementView(Long id,
-                           TypeMovement typeMovement,
+                           MovementType movementType,
                            LocalDateTime initialDate,
                            LocalDateTime finishDate,
-                           StatusMovement statusMovement,
+                           MovementStatus movementStatus,
                            String containerNumber,
-                           TypeContainer typeContainer,
-                           StatusContainer statusContainer,
-                           CategoryContainer categoryContainer,
+                           ContainerType containerType,
+                           ContainerStatus containerStatus,
+                           ContainerCategory containerCategory,
                            String clientName) {
 
     public MovementView(Movement movement, Container container) {

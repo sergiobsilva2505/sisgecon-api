@@ -1,6 +1,6 @@
 package br.com.sbs.sisgecon.containers.enums;
 
-public enum CategoryContainer {
+public enum ContainerCategory {
 
     IMPORT, EXPORT;
 }

@@ -12,11 +12,11 @@ public interface MovementRepository extends JpaRepository<Movement, Long> {
     List<Movement> findAllByContainerId(Long id);
 
     @Query(value = """
-            SELECT COUNT(movement.id) movementsCount, movement.type_movement AS typeMovement, ci.name AS clientName
+            SELECT COUNT(movement.id) movementsCount, movement.movement_type AS movementType, ci.name AS clientName
             FROM movements movement
                      JOIN containers container ON movement.container_id = container.id
                      JOIN clients ci ON container.client_id = ci.id
-            GROUP BY movement.type_movement, container.client_id;
+            GROUP BY movement.movement_type, container.client_id;
         """,nativeQuery = true)
     List<MovementsProjection> getQuantityOfMovements();
 

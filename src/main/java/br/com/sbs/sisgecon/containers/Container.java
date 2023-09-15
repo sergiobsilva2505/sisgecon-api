@@ -1,11 +1,10 @@
 package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.client.Client;
-import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
-import br.com.sbs.sisgecon.containers.enums.CategoryContainer;
-import br.com.sbs.sisgecon.containers.enums.StatusContainer;
-import br.com.sbs.sisgecon.containers.enums.TypeContainer;
+import br.com.sbs.sisgecon.containers.enums.ContainerCategory;
+import br.com.sbs.sisgecon.containers.enums.ContainerStatus;
+import br.com.sbs.sisgecon.containers.enums.ContainerType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,15 +23,15 @@ public class Container {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private TypeContainer typeContainer;
+    private ContainerType containerType;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private StatusContainer statusContainer;
+    private ContainerStatus containerStatus;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private CategoryContainer categoryContainer;
+    private ContainerCategory containerCategory;
 
     @NotNull
     @ManyToOne
@@ -42,19 +41,19 @@ public class Container {
     public Container() {
     }
 
-    public Container(String number, TypeContainer typeContainer, StatusContainer statusContainer, CategoryContainer categoryContainer, Client client) {
+    public Container(String number, ContainerType containerType, ContainerStatus containerStatus, ContainerCategory containerCategory, Client client) {
         this.number = number;
-        this.typeContainer = typeContainer;
-        this.statusContainer = statusContainer;
-        this.categoryContainer = categoryContainer;
+        this.containerType = containerType;
+        this.containerStatus = containerStatus;
+        this.containerCategory = containerCategory;
         this.client = client;
     }
 
     public void toMerge(UpdateContainerForm updateContainerForm) {
         this.number = updateContainerForm.number();
-        this.typeContainer = updateContainerForm.typeContainer();
-        this.statusContainer = updateContainerForm.statusContainer();
-        this.categoryContainer = updateContainerForm.categoryContainer();
+        this.containerType = updateContainerForm.containerType();
+        this.containerStatus = updateContainerForm.containerStatus();
+        this.containerCategory = updateContainerForm.containerCategory();
     }
 
     public Long getId() {
@@ -65,16 +64,16 @@ public class Container {
         return number;
     }
 
-    public TypeContainer getTypeContainer() {
-        return typeContainer;
+    public ContainerType getTypeContainer() {
+        return containerType;
     }
 
-    public StatusContainer getStatusContainer() {
-        return statusContainer;
+    public ContainerStatus getStatusContainer() {
+        return containerStatus;
     }
 
-    public CategoryContainer getCategoryContainer() {
-        return categoryContainer;
+    public ContainerCategory getCategoryContainer() {
+        return containerCategory;
     }
 
     public Client getClient() {

@@ -1,6 +1,6 @@
 package br.com.sbs.sisgecon.containers.enums;
 
-public enum StatusContainer {
+public enum ContainerType {
 
-    FULL, EMPTY;
+    TWENTY, FORTY;
 }

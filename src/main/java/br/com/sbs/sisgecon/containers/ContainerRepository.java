@@ -17,9 +17,9 @@ public interface ContainerRepository extends JpaRepository<Container, Long> {
     Optional<Container> findByNumber(String number);
 
     @Query(value = """
-        SELECT category_container AS categoryContainer, count(id) AS quantityOfContainers
+        SELECT container_category AS containerCategory, count(id) AS quantityOfContainers
         FROM containers
-        GROUP BY category_container;
+        GROUP BY container_category;
     """, nativeQuery = true)
     List<ContainersProjection> getQuantityOfImportsAndExports();
 

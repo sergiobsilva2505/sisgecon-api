@@ -1,8 +1,8 @@
 package br.com.sbs.sisgecon.movement;
 
 import br.com.sbs.sisgecon.containers.Container;
-import br.com.sbs.sisgecon.movement.enums.StatusMovement;
-import br.com.sbs.sisgecon.movement.enums.TypeMovement;
+import br.com.sbs.sisgecon.movement.enums.MovementStatus;
+import br.com.sbs.sisgecon.movement.enums.MovementType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,13 +18,13 @@ public class Movement {
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private TypeMovement typeMovement;
+    private MovementType movementType;
 
     private LocalDateTime initialDate;
     private LocalDateTime finishDate;
 
     @Enumerated(EnumType.STRING)
-    private StatusMovement statusMovement;
+    private MovementStatus movementStatus;
 
     @ManyToOne
     @JoinColumn(name = "container_id")
@@ -35,33 +35,33 @@ public class Movement {
     public Movement() {
     }
 
-    public Movement(TypeMovement typeMovement, LocalDateTime initialDate, LocalDateTime finishDate, StatusMovement statusMovement, Container container) {
-        this.typeMovement = typeMovement;
+    public Movement(MovementType movementType, LocalDateTime initialDate, LocalDateTime finishDate, MovementStatus movementStatus, Container container) {
+        this.movementType = movementType;
         this.initialDate = initialDate;
         this.finishDate = finishDate;
-        this.statusMovement = statusMovement;
+        this.movementStatus = movementStatus;
         this.container = container;
     }
 
-    public Movement(TypeMovement typeMovement, Container container) {
-        this.typeMovement = typeMovement;
+    public Movement(MovementType movementType, Container container) {
+        this.movementType = movementType;
         this.initialDate = LocalDateTime.now();
         this.finishDate = null;
-        this.statusMovement = StatusMovement.IN_PROGRESS;
+        this.movementStatus = MovementStatus.IN_PROGRESS;
         this.container = container;
     }
 
     public void finish() {
         this.finishDate = LocalDateTime.now();
-        this.statusMovement = StatusMovement.FINISHED;
+        this.movementStatus = MovementStatus.FINISHED;
     }
 
     public Long getId() {
         return id;
     }
 
-    public TypeMovement getTypeMovement() {
-        return typeMovement;
+    public MovementType getTypeMovement() {
+        return movementType;
     }
 
     public LocalDateTime getInitialDate() {
@@ -72,8 +72,8 @@ public class Movement {
         return finishDate;
     }
 
-    public StatusMovement getStatusMovement() {
-        return statusMovement;
+    public MovementStatus getStatusMovement() {
+        return movementStatus;
     }
 
     public Container getContainer() {
