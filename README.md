@@ -262,29 +262,57 @@ São requisitos funcionais da aplicação:
       - Response 200:
         ```json
         [
-          {
-            "id": 1,
-            "number": "TEMU7531669",
-            "containerType": "TWENTY",
-            "containerStatus": "EMPTY",
-            "containerCategory": "IMPORT",
-            "client": {
-              "id": 2,
-              "name": "Caleb e Rayssa Adega ME",
-              "cnpj": "95550187000103"
-            }
-          },
-          {
-            "id": 2,
-            "number": "CAXU4568524",
-            "containerType": "FORTY",
-            "containerStatus": "EMPTY",
-            "containerCategory": "EXPORT",
-            "client": {
-              "id": 1,
-              "name": "Daniel e Heitor Telecomunicações ME",
-              "cnpj": "71089937000123"
-            }
+          "content": [
+              {
+                "id": 1,
+                "number": "TEMU7531669",
+                "containerType": "TWENTY",
+                "containerStatus": "EMPTY",
+                "containerCategory": "IMPORT",
+                "client": {
+                  "id": 2,
+                  "name": "Caleb e Rayssa Adega ME",
+                  "cnpj": "95550187000103"
+                }
+              },
+              {
+                "id": 2,
+                "number": "CAXU4568524",
+                "containerType": "FORTY",
+                "containerStatus": "EMPTY",
+                "containerCategory": "EXPORT",
+                "client": {
+                  "id": 1,
+                  "name": "Daniel e Heitor Telecomunicações ME",
+                  "cnpj": "71089937000123"
+                }
+              }
+            ],
+            "pageable": {
+              "pageNumber": 0,
+              "pageSize": 2,
+              "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+              },
+              "offset": 0,
+              "paged": true,
+              "unpaged": false
+            },
+            "totalPages": 13,
+            "totalElements": 26,
+            "last": false,
+            "first": true,
+            "size": 2,
+            "number": 0,
+            "sort": {
+              "sorted": false,
+              "unsorted": true,
+              "empty": true
+            },
+            "numberOfElements": 2,
+            "empty": false
           }
         ]
         ```

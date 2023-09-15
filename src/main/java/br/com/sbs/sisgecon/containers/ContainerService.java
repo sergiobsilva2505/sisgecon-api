@@ -14,6 +14,8 @@ import br.com.sbs.sisgecon.movement.MovementRepository;
 import br.com.sbs.sisgecon.movement.dto.MovementViewByContainer;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,10 +46,10 @@ public class ContainerService {
     }
 
     @Transactional(readOnly = true)
-    public List<ContainerView> findAll() {
-        List<Container> containers = containerRepository.findAll();
+    public Page<ContainerView> findAll(PageRequest pageRequest) {
+        Page<Container> containers = containerRepository.findAll(pageRequest);
 
-        return containers.stream().map(ContainerView::new).toList();
+        return containers.map(ContainerView::new);
     }
 
     @Transactional(readOnly = true)

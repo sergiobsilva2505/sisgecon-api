@@ -5,6 +5,8 @@ import br.com.sbs.sisgecon.containers.dto.ContainerWithMovementsView;
 import br.com.sbs.sisgecon.containers.dto.NewContainerForm;
 import br.com.sbs.sisgecon.containers.dto.UpdateContainerForm;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +48,11 @@ public class ContainerController {
     }
 
     @RequestMapping
-    ResponseEntity<List<ContainerView>> getAll() {
-        List<ContainerView> containerView = containerService.findAll();
+    ResponseEntity<Page<ContainerView>> getAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "2") Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<ContainerView> containerView = containerService.findAll(pageRequest);
 
         return ResponseEntity.ok(containerView);
     }
