@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record UpdateContainerForm (Long id,
                                    @NotBlank
-                                   @Pattern(regexp = "[A-Z]{4}[0-9]{7}")
+                                   @Pattern(regexp = "[A-Z]{4}[0-9]{7}", message = "deve corresponder ao padrão (ABCU1234567)")
                                    String number,
                                    @NotNull
                                    ContainerType containerType,

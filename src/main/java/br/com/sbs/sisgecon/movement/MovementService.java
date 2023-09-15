@@ -46,7 +46,7 @@ public class MovementService {
     @Transactional(readOnly = true)
     public MovementView findById(Long id) {
         Movement movement = movementRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
+                .orElseThrow(() -> new ControllerNotFoundException("Movimentação não encontrada, id:%d".formatted(id)));
 
         return new MovementView(movement, movement.getContainer());
     }
@@ -54,16 +54,15 @@ public class MovementService {
     @Transactional
     public MovementView finish(Long id) {
         Movement movement = movementRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
+                .orElseThrow(() -> new ControllerNotFoundException("Movimentação não encontrada, id:%d".formatted(id)));
         movement.finish();
 
         return new MovementView(movement, movement.getContainer());
     }
 
-    @Transactional
     public void delete(Long id) {
         Movement movement = movementRepository.findById(id)
-                .orElseThrow(() -> new ControllerNotFoundException("Container não encontrado, id:%d".formatted(id)));
+                .orElseThrow(() -> new ControllerNotFoundException("Movimentação não encontrada, id:%d".formatted(id)));
 
         movementRepository.delete(movement);
     }

@@ -18,7 +18,7 @@ public class Container {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Pattern(regexp = "[A-Z]{4}[0-9]{7}")
+    @Pattern(regexp = "[A-Z]{4}[0-9]{7}", message = "deve corresponder ao padrão (ABCU1234567)")
     private String number;
 
     @NotNull
