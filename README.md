@@ -254,14 +254,13 @@ São requisitos funcionais da aplicação:
   <details>
     <summary>Buscar todos os Containers</summary>
 
-    - GET: http://localhost:8080/ccontainers
+    - GET: http://localhost:8080/ccontainers?page={page}&size={size} *com paginação de tamanho opcional*
       - Request:
         ```bash
-          curl -X GET 'localhost:8080/containers'
+          curl -X GET 'localhost:8080/containerspage=1&size=5'
         ```
       - Response 200:
         ```json
-        [
           "content": [
               {
                 "id": 1,
@@ -314,7 +313,6 @@ São requisitos funcionais da aplicação:
             "numberOfElements": 2,
             "empty": false
           }
-        ]
         ```
   </details>  
 
@@ -468,10 +466,10 @@ São requisitos funcionais da aplicação:
   <details>
     <summary>Buscar todos os Movimentações</summary>
 
-    - GET: http://localhost:8080/movements
+    - GET: http://localhost:8080/movements?page={page}&size={size} *com paginação de tamando opcional*
       - Request:
         ```bash
-          curl -X GET 'localhost:8080/movements'
+          curl -X GET 'localhost:8080/movements?page=1&size=6'
         ```
       - Response 200
         ```json
