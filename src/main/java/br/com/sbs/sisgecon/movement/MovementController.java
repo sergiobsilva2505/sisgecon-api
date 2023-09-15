@@ -3,6 +3,8 @@ package br.com.sbs.sisgecon.movement;
 import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,8 +31,11 @@ public class MovementController {
     }
 
     @GetMapping
-    ResponseEntity<List<MovementView>> getAllMovements() {
-        List<MovementView> movements =  movementService.findAll();
+    ResponseEntity<Page<MovementView>> getAllMovements(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "2") Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<MovementView> movements =  movementService.findAll(pageRequest);
 
         return ResponseEntity.ok(movements);
     }

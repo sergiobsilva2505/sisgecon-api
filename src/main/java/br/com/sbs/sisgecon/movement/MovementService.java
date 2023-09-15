@@ -6,6 +6,8 @@ import br.com.sbs.sisgecon.containers.ContainersProjection;
 import br.com.sbs.sisgecon.exception.ControllerNotFoundException;
 import br.com.sbs.sisgecon.movement.dto.MovementForm;
 import br.com.sbs.sisgecon.movement.dto.MovementView;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +36,11 @@ public class MovementService {
     }
 
     @Transactional(readOnly = true)
-    public List<MovementView> findAll() {
+    public Page<MovementView> findAll(PageRequest pageRequest) {
 
-        List<Movement> movements = movementRepository.findAll();
+        Page<Movement> movements = movementRepository.findAll(pageRequest);
 
-        return movements.stream()
-                .map(movement -> new MovementView(movement, movement.getContainer()))
-                .toList();
+        return movements.map(movement -> new MovementView(movement, movement.getContainer()));
     }
 
     @Transactional(readOnly = true)

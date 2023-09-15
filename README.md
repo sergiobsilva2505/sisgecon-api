@@ -475,32 +475,59 @@ São requisitos funcionais da aplicação:
         ```
       - Response 200
         ```json
-          [
-            {
-              "id": 1,
-              "movementType": "GATE_IN",
-              "initialDate": "2023-09-12T20:37:58",
-              "finishDate": "2023-09-12T20:37:58",
-              "movementStatus": "FINISHED",
-              "containerNumber": "TEMU7531669",
-              "containerType": "TWENTY",
-              "containerStatus": "EMPTY",
-              "containerCategory": "IMPORT",
-              "clientName": "Caleb e Rayssa Adega ME"
+          {
+            "content": [
+              {
+                "id": 1,
+                "movementType": "GATE_IN",
+                "initialDate": "2023-09-12T20:37:58",
+                "finishDate": "2023-09-12T20:37:58",
+                "movementStatus": "FINISHED",
+                "containerNumber": "TEMU7531669",
+                "containerType": "TWENTY",
+                "containerStatus": "EMPTY",
+                "containerCategory": "IMPORT",
+                "clientName": "Caleb e Rayssa Adega ME"
+              },
+              {
+                "id": 3,
+                "movementType": "GATE_IN",
+                "initialDate": "2023-09-12T20:37:58",
+                "finishDate": "2023-09-12T20:37:58",
+                "movementStatus": "FINISHED",
+                "containerNumber": "TEMU9871236",
+                "containerType": "TWENTY",
+                "containerStatus": "FULL",
+                "containerCategory": "IMPORT",
+                "clientName": "César e Pedro Henrique Casa Noturna Ltda"
+              }
+            ],
+            "pageable": {
+              "pageNumber": 0,
+              "pageSize": 2,
+              "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+              },
+              "offset": 0,
+              "paged": true,
+              "unpaged": false
             },
-            {
-              "id": 3,
-              "movementType": "GATE_IN",
-              "initialDate": "2023-09-12T20:37:58",
-              "finishDate": "2023-09-12T20:37:58",
-              "movementStatus": "FINISHED",
-              "containerNumber": "TEMU9871236",
-              "containerType": "TWENTY",
-              "containerStatus": "FULL",
-              "containerCategory": "IMPORT",
-              "clientName": "César e Pedro Henrique Casa Noturna Ltda"
-            }
-          ]
+            "totalPages": 95,
+            "totalElements": 190,
+            "last": false,
+            "first": true,
+            "size": 2,
+            "number": 0,
+            "sort": {
+              "sorted": false,
+              "unsorted": true,
+              "empty": true
+            },
+            "numberOfElements": 2,
+            "empty": false
+          }
         ```
   </details>
   <details>
