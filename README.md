@@ -86,9 +86,9 @@
   </details>
 
   <details>  
-	  <summary>Retornar um clientes específico</summary>
+	  <summary>Retornar um cliente específico</summary>
 
-    - GET: http://localhost:8080/clients/{id} *(id do clientes buscado)*
+    - GET: http://localhost:8080/clients/{id} *(id do cliente buscado)*
       - Request:
         ```bash
           curl -X GET 'localhost:8080/clients/2'
@@ -112,62 +112,222 @@
         ```
   </details>    
   
-- ### API de Endereços:
+- ### API de Containers:
 
   <details>
-	  <summary>Cadastrar um cliente</summary>
+	  <summary>Cadastrar um containers</summary>
 
-    - POST: http://localhost:8080/clients
+    - POST: http://localhost:8080/containers
       - Request:
         ```bash
-          curl -X POST 'localhost:8080/clients' \
+          curl -X POST 'localhost:8080/containers' \
           -H 'Content-Type: application/json' \
           --data '{
-              "userId": 1,
-              "street": "Rua dos Bobos",
-              "number": "0",
-              "neighborhood": "Vila Pompéia",
-              "city": "São Paulo",
-              "state": "SP"
+              "number": "ACCU7577588",
+              "containerType": "FORTY",
+              "containerStatus": "FULL",
+              "containerCategory": "IMPORT",
+              "clientId": 2
           }'
         ```
       - Response 201:
         ```json
           {
-            "id": 1,
-            "street": "Rua dos Bobos",
-            "number": "0",
-            "neighborhood": "Vila Pompéia",
-            "city": "São Paulo",
-            "state": "SP",
-            "user": {
-                "id": 1,
-                "name": "Sergio Bezerra da Silva",
-                "birthDate": "1974-05-25",
-                "gender": "MALE"
-            },
-            "people": []
+            "id": 25,
+            "number": "ACCU7577588",
+            "containerType": "FORTY",
+            "containerStatus": "FULL",
+            "containerCategory": "IMPORT",
+            "client": {
+              "id": 2,
+              "name": "Caleb e Rayssa Adega ME",
+              "cnpj": "95550187000103"
+            }
           }
         ```
       - Response 400:
         ```json
           {
-            "number": "Number is required",
-            "city": "City is required",
-            "street": "Street is mandatory",
-            "state": "State is required",
-            "neighborhood": "Neighborhood is required",
-            "userId": "User is mandatory"
+            "status": 400,
+            "message": "ocorreu um ou mais erros de validação",
+            "timestamp": "2023-09-15T05:04:18.856523312Z",
+            "path": "/containers",
+            "invalidParams": [
+              {
+                  "field": "clientId",
+                  "message": "não deve ser nulo"
+              },
+              {
+                  "field": "containerType",
+                  "message": "não deve ser nulo"
+              },
+              {
+                  "field": "number",
+                  "message": "deve corresponder ao padrão (ABCU1234567)"
+              },
+              {
+                  "field": "number",
+                  "message": "não deve estar em branco"
+              },
+              {
+                  "field": "containerStatus",
+                  "message": "não deve ser nulo"
+              },
+              {
+                  "field": "containerCategory",
+                  "message": "não deve ser nulo"
+              }
+            ]
           }
         ```
       - Response 404:
         ```json
           {
-            "error": "Address id: 3 not found."
+            "status": 404,
+            "message": "Cliente não encontrado, id:200",
+            "timestamp": "2023-09-15T05:10:34.289908583Z",
+            "path": "/containers"
           }
         ```
 
   </details>
 
-  
+  <details>
+    <summary>Buscar um container</summary>
+
+    - GET: http://localhost:8080/containers/{id} *(id do endereço buscado)*
+      - Request:
+        ```bash
+          curl -X GET 'localhost:8080/containers/1'
+        ```
+      - Response 200:
+        ```json
+          {
+            "id": 1,
+            "number": "TEMU7531669",
+            "containerType": "TWENTY",
+            "containerStatus": "EMPTY",
+            "containerCategory": "IMPORT",
+            "client": {
+              "id": 2,
+              "name": "Caleb e Rayssa Adega ME",
+              "cnpj": "95550187000103"
+            }
+          }
+        ```
+      - Response 404:
+        ```json
+          {
+            "status": 404,
+            "message": "Container não encontrado, id:200",
+            "timestamp": "2023-09-15T05:17:35.482749691Z",
+            "path": "/containers/200"
+          }
+        ```
+  </details>
+
+  <details>
+    <summary>Buscar todos os Containers</summary>
+
+    - GET: http://localhost:8080/ccontainers
+      - Request:
+        ```bash
+          curl -X GET 'localhost:8080/containers'
+        ```
+      - Response 200:
+        ```json
+        [
+          {
+            "id": 1,
+            "number": "TEMU7531669",
+            "containerType": "TWENTY",
+            "containerStatus": "EMPTY",
+            "containerCategory": "IMPORT",
+            "client": {
+              "id": 2,
+              "name": "Caleb e Rayssa Adega ME",
+              "cnpj": "95550187000103"
+            }
+          },
+          {
+            "id": 2,
+            "number": "CAXU4568524",
+            "containerType": "FORTY",
+            "containerStatus": "EMPTY",
+            "containerCategory": "EXPORT",
+            "client": {
+              "id": 1,
+              "name": "Daniel e Heitor Telecomunicações ME",
+              "cnpj": "71089937000123"
+            }
+          }
+        ]
+        ```
+  </details>  
+
+  <details>
+    <summary>Atualizar um container</summary>
+
+    - PUT: http://localhost:8080/containers/{id} *(id do container a ser atualizado)*
+      - Request:
+        ```bash
+          curl -X PUT 'localhost:8080/containers/1' \
+          -H 'Content-Type: application/json' \
+          --data '{
+            "number": "TEMU7531669",
+            "containerType": "TWENTY",
+            "containerStatus": "EMPTY",
+            "containerCategory": "IMPORT"
+          }'
+        ```
+      - Response 200:
+        ```json        
+          {
+            "id": 1,
+            "number": "TEMU7531669",
+            "containerType": "TWENTY",
+            "containerStatus": "EMPTY",
+            "containerCategory": "IMPORT",
+            "client": {
+              "id": 2,
+              "name": "Caleb e Rayssa Adega ME",
+              "cnpj": "95550187000103"
+            }
+          }
+        ```
+      - Response 404:
+        ```json
+          {
+            "status": 404,
+            "message": "Container não encontrado, id:300",
+            "timestamp": "2023-09-15T05:21:00.526648495Z",
+            "path": "/containers/300"
+          }
+        ```
+  </details>
+
+  <details>
+    <summary>Deletar um container</summary>
+
+    - DELETE: http://localhost:8080/containers/{id} *(id do container a ser deletado)*
+      - Request:
+        ```bash
+          curl -X DELETE 'localhost:8080/containers/1'
+        ```
+      - Response 204:
+        ```json
+          {}
+        ```
+      - Response 404:
+        ```json
+          {
+            "status": 404,
+            "message": "Violação de integridade da base",
+            "timestamp": "2023-09-15T05:31:48.021555407Z",
+            "path": "/containers/3"
+          }
+        ```      
+  </details>  
+
+
 
