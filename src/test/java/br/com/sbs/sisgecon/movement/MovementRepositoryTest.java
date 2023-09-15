@@ -2,7 +2,6 @@ package br.com.sbs.sisgecon.movement;
 
 import br.com.sbs.sisgecon.client.ClientRepository;
 import br.com.sbs.sisgecon.containers.ContainerRepository;
-import br.com.sbs.sisgecon.movement.enums.TypeMovement;
 import br.com.sbs.sisgecon.util.ProgramingDatabaseMotherTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static br.com.sbs.sisgecon.movement.enums.TypeMovement.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
@@ -43,11 +43,12 @@ public class MovementRepositoryTest {
 
         List<MovementsProjection> quantityOfMovements = movementRepository.getQuantityOfMovements();
 
-//        assertThat(quantityOfMovements)
-//                .extracting(ContainersProjection::getCategoryContainer, ContainersProjection::getQuantityOfContainers)
-//                .containsAnyOf(
-//                        tuple(IMPORT, 8),
-//                        tuple(EXPORT, 2)
-//                );
+        assertThat(quantityOfMovements)
+                .extracting(MovementsProjection::getClientName, MovementsProjection::getTypeMovement, MovementsProjection::getMovementsCount)
+                .containsAnyOf(
+                        tuple("Daniel e Heitor Telecomunicações ME", GATE_IN, 2),
+                        tuple("Caleb e Rayssa Adega ME", REPOSITIONING, 3),
+                        tuple("César e Pedro Henrique Casa Noturna Ltda", SCANNER, 1)
+                );
     }
 }

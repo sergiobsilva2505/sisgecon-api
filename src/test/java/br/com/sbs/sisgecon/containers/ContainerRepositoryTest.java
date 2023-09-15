@@ -2,6 +2,7 @@ package br.com.sbs.sisgecon.containers;
 
 import br.com.sbs.sisgecon.client.ClientRepository;
 import br.com.sbs.sisgecon.movement.MovementRepository;
+import br.com.sbs.sisgecon.movement.MovementsProjection;
 import br.com.sbs.sisgecon.util.ProgramingDatabaseMotherTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,11 +80,11 @@ public class ContainerRepositoryTest {
 
     @Test
     public void getQuantityOfImportsAndExports__must_return_the_total_import_and_export_containers() {
-        List<ContainersProjection> quantityOfImportsAndExports = containerRepository.getQuantityOfImportsAndExports();
+        List<MovementsProjection> quantityOfImportsAndExports = movementRepository.getQuantityOfMovements();
 
         assertThat(quantityOfImportsAndExports).hasSize(2);
         assertThat(quantityOfImportsAndExports)
-                .extracting(ContainersProjection::getCategoryContainer, ContainersProjection::getQuantityOfContainers)
+                .extracting(MovementsProjection::getClientName, MovementsProjection::getMovementsCount, MovementsProjection::getTypeMovement)
                 .containsExactly(
                         tuple(IMPORT, 4),
                         tuple(EXPORT, 2)
