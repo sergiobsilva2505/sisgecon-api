@@ -81,10 +81,11 @@ public class ContainerRepositoryTest {
     public void getQuantityOfImportsAndExports__must_return_the_total_import_and_export_containers() {
         List<ContainersProjection> quantityOfImportsAndExports = containerRepository.getQuantityOfImportsAndExports();
 
+        assertThat(quantityOfImportsAndExports).hasSize(2);
         assertThat(quantityOfImportsAndExports)
                 .extracting(ContainersProjection::getCategoryContainer, ContainersProjection::getQuantityOfContainers)
-                .containsAnyOf(
-                        tuple(IMPORT, 8),
+                .containsExactly(
+                        tuple(IMPORT, 4),
                         tuple(EXPORT, 2)
                 );
     }
