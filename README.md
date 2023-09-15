@@ -9,13 +9,21 @@ São requisitos funcionais da aplicação:
     4. Status: Cheio / Vazio
     5. Categoria: Importação / Exportação
 2. Crud de Movimentações
-    1. Tipo de Movimentação (embarque, descarga, gate in, gate out, reposicionamento, pesagem, scanner
+    1. Tipo de Movimentação (embarque, descarga, gate in, gate out, reposicionamento, pesagem, scanner)
     2. Data e Hora do Início
     3. Data e Hora do Fim
 3. Relatório com o total de movimentações agrupadas por cliente e tipo de movimentação.
     1. No ﬁnal do relatório deverá conter um sumário com o total de importação /
     exportação.
-     
+
+#### Algumas observações imortantes
+
+ - Não é um requisito funcional, a aplicação ter uma entidade cliente, porém achei melhor modelar porque ficaria melhor tanto pra gerar o relatório como pra não gerar inconsistencias.
+ - O inicio e o fim de uma movimentação, não estão no formulario, porque a hora de inicio é setada no construtor, e a finalização, quando ocorre uma requisição para o enpoint `/movements/{id}/finish`.
+ - Para os tipos de movimentação, o tipo `pesagem` foi dividido em dois, `pesagem de entrada` e `pesagem de saida`, pois porque acredito que o container é pesado quando chega e quando sai.
+ - O `Status da movimentação` foi criado para definir o inicio e o fim de uma movimentação, porque uma operação como reposionamento pode demorar e se alguém busca o container no sistema, já vai saber que ele está sendo movimentado.
+ - Na pasta `src/main/resources` se encontra o arquivo `data.sql`, com alguns inserts para o banco de dados.
+
 
 ## Tecnologias
 
