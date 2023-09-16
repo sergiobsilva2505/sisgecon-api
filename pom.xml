@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.sbs</groupId>
-    <artifactId>sisgecon</artifactId>
+    <artifactId>sisgecon-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sisgecon</name>
     <description>teste técnico</description>
