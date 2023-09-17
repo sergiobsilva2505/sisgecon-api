@@ -4,6 +4,10 @@ import br.com.sbs.sisgeconapi.client.dto.ClientView;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
 import br.com.sbs.sisgeconapi.client.dto.UpdateClientForm;
 import br.com.sbs.sisgeconapi.exception.ControllerNotFoundException;
+import br.com.sbs.sisgeconapi.exception.DatabaseException;
+import br.com.sbs.sisgeconapi.exception.ServiceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,5 +46,15 @@ public class ClientService {
         client.merge(updateClientForm);
 
         return new ClientView(client);
+    }
+
+    public void delete(Long id) {
+        try {
+            clientRepository.deleteById(id);
+        } catch (EntityNotFoundException exception) {
+            throw new ServiceNotFoundException("Cliente não existe, id:%d".formatted(id));
+        } catch (DataIntegrityViolationException exception) {
+            throw new DatabaseException("Violação de integridade da base");
+        }
     }
 }
