@@ -18,9 +18,9 @@ import java.util.List;
 
 public class ProgramingDatabaseMotherTest {
 
-    private ClientRepository clientRepository;
-    private ContainerRepository containerRepository;
-    private MovementRepository movementRepository;
+    private final ClientRepository clientRepository;
+    private final ContainerRepository containerRepository;
+    private final MovementRepository movementRepository;
 
 
     public ProgramingDatabaseMotherTest(ClientRepository clientRepository, ContainerRepository containerRepository, MovementRepository movementRepository) {

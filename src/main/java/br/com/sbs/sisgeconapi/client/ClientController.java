@@ -2,6 +2,7 @@ package br.com.sbs.sisgeconapi.client;
 
 import br.com.sbs.sisgeconapi.client.dto.ClientView;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
+import br.com.sbs.sisgeconapi.client.dto.UpdateClientForm;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,15 +18,22 @@ public class ClientController {
 
     private final ClientService clientService;
     private final NewClientFormValidator newClientFormValidator;
+    private final UpdateClientFormValidator updateClientFormValidator;
 
-    public ClientController(ClientService clientService, NewClientFormValidator newClientFormValidator) {
+    public ClientController(ClientService clientService, NewClientFormValidator newClientFormValidator, UpdateClientFormValidator updateClientFormValidator) {
         this.clientService = clientService;
         this.newClientFormValidator = newClientFormValidator;
+        this.updateClientFormValidator = updateClientFormValidator;
     }
 
     @InitBinder("newClientForm")
     void initBinderNewClientForm(WebDataBinder webDataBinder){
         webDataBinder.addValidators(newClientFormValidator);
+    }
+
+    @InitBinder("updateClientForm")
+    void initBinderUpdateClientForm(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(updateClientFormValidator);
     }
 
     @PostMapping
@@ -48,5 +56,12 @@ public class ClientController {
         ClientView client = clientService.findById(id);
 
         return ResponseEntity.ok(client);
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<ClientView> update(@PathVariable Long id, @Valid @RequestBody UpdateClientForm updateClientForm) {
+        ClientView clientView = clientService.update(id, updateClientForm);
+
+        return ResponseEntity.ok(clientView);
     }
 }
