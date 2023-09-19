@@ -1,6 +1,6 @@
 package br.com.sbs.sisgeconapi.client.dto;
 
-import br.com.sbs.sisgeconapi.client.Client;
+import br.com.sbs.sisgeconapi.client.domain.Client;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 

@@ -1,8 +1,11 @@
-package br.com.sbs.sisgeconapi.client;
+package br.com.sbs.sisgeconapi.client.controller;
 
 import br.com.sbs.sisgeconapi.client.dto.ClientView;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
 import br.com.sbs.sisgeconapi.client.dto.UpdateClientForm;
+import br.com.sbs.sisgeconapi.client.service.ClientService;
+import br.com.sbs.sisgeconapi.client.service.NewClientFormValidator;
+import br.com.sbs.sisgeconapi.client.service.UpdateClientFormValidator;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;

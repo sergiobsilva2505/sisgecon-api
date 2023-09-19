@@ -1,6 +1,8 @@
 package br.com.sbs.sisgeconapi.client;
 
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
+import br.com.sbs.sisgeconapi.client.service.NewClientFormValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;

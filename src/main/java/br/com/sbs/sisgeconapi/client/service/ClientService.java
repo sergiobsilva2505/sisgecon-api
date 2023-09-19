@@ -1,5 +1,7 @@
-package br.com.sbs.sisgeconapi.client;
+package br.com.sbs.sisgeconapi.client.service;
 
+import br.com.sbs.sisgeconapi.client.domain.Client;
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.client.dto.ClientView;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
 import br.com.sbs.sisgeconapi.client.dto.UpdateClientForm;

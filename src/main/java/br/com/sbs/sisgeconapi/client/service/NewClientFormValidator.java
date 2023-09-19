@@ -1,5 +1,6 @@
-package br.com.sbs.sisgeconapi.client;
+package br.com.sbs.sisgeconapi.client.service;
 
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.client.dto.NewClientForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

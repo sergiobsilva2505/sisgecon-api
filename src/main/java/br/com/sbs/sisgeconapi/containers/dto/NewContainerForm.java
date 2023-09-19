@@ -1,6 +1,6 @@
 package br.com.sbs.sisgeconapi.containers.dto;
 
-import br.com.sbs.sisgeconapi.client.Client;
+import br.com.sbs.sisgeconapi.client.domain.Client;
 import br.com.sbs.sisgeconapi.containers.Container;
 import br.com.sbs.sisgeconapi.containers.enums.ContainerCategory;
 import br.com.sbs.sisgeconapi.containers.enums.ContainerStatus;

@@ -1,7 +1,7 @@
 package br.com.sbs.sisgeconapi.util;
 
-import br.com.sbs.sisgeconapi.client.Client;
-import br.com.sbs.sisgeconapi.client.ClientRepository;
+import br.com.sbs.sisgeconapi.client.domain.Client;
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.containers.Container;
 import br.com.sbs.sisgeconapi.containers.ContainerRepository;
 import br.com.sbs.sisgeconapi.containers.enums.ContainerCategory;

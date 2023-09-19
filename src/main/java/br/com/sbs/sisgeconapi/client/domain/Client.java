@@ -1,4 +1,4 @@
-package br.com.sbs.sisgeconapi.client;
+package br.com.sbs.sisgeconapi.client.domain;
 
 import br.com.sbs.sisgeconapi.client.dto.UpdateClientForm;
 import jakarta.persistence.*;

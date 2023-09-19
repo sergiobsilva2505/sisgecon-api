@@ -1,7 +1,7 @@
 package br.com.sbs.sisgeconapi.containers;
 
-import br.com.sbs.sisgeconapi.client.Client;
-import br.com.sbs.sisgeconapi.client.ClientRepository;
+import br.com.sbs.sisgeconapi.client.domain.Client;
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.containers.dto.ContainerView;
 import br.com.sbs.sisgeconapi.containers.dto.ContainerWithMovementsView;
 import br.com.sbs.sisgeconapi.containers.dto.NewContainerForm;

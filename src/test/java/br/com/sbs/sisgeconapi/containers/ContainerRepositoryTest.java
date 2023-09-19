@@ -1,6 +1,6 @@
 package br.com.sbs.sisgeconapi.containers;
 
-import br.com.sbs.sisgeconapi.client.ClientRepository;
+import br.com.sbs.sisgeconapi.client.domain.ClientRepository;
 import br.com.sbs.sisgeconapi.movement.MovementRepository;
 import br.com.sbs.sisgeconapi.util.ProgramingDatabaseMotherTest;
 import org.junit.Before;

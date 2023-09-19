@@ -1,6 +1,6 @@
 package br.com.sbs.sisgeconapi.client.dto;
 
-import br.com.sbs.sisgeconapi.client.Client;
+import br.com.sbs.sisgeconapi.client.domain.Client;
 
 public record ClientView(Long id, String name, String cnpj) {
 
