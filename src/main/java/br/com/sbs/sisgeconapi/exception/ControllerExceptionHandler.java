@@ -25,7 +25,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ValidationError> validationError(MethodArgumentNotValidException exception, HttpServletRequest request) {
         String message = "ocorreu um ou mais erros de validação";
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        HttpStatus badRequest = HttpStatus.CONFLICT;
         ValidationError validationError = new ValidationError(badRequest.value(), message, Instant.now(), request.getServletPath());
 
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
