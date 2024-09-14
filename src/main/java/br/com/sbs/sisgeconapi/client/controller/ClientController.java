@@ -30,12 +30,12 @@ public class ClientController {
     }
 
     @InitBinder("newClientForm")
-    void initBinderNewClientForm(WebDataBinder webDataBinder){
+    void initBinderNewClientForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(newClientFormValidator);
     }
 
     @InitBinder("updateClientForm")
-    void initBinderUpdateClientForm(WebDataBinder webDataBinder){
+    void initBinderUpdateClientForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(updateClientFormValidator);
     }
 
@@ -69,7 +69,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity delete(@PathVariable Long id) {
+    ResponseEntity<Void> delete(@PathVariable Long id) {
         clientService.delete(id);
 
         return ResponseEntity.noContent().build();

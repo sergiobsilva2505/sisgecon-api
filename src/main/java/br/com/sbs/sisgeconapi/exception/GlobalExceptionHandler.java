@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         this.messageSource = messageSource;
     }
 
-    private List<FieldMessage>  getFieldMessages(MethodArgumentNotValidException exception) {
+    private List<FieldMessage> getFieldMessages(MethodArgumentNotValidException exception) {
         List<FieldMessage> invalidParams = new ArrayList<>();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         fieldErrors.forEach((error) -> {

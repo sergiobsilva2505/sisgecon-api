@@ -1,4 +1,5 @@
-create table if not exists containers(
+create table if not exists containers
+(
     id                 bigint primary key        not null auto_increment,
     number             varchar(11)               not null,
     container_type     enum ('TWENTY', 'FORTY')  not null,
