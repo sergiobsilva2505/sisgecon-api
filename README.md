@@ -266,7 +266,7 @@ São requisitos funcionais da aplicação:
         - Response 200:
           ```json
           {
-            "content" : [
+            "content": [
                 {
                   "id": 1,
                   "number": "TEMU7531669",
