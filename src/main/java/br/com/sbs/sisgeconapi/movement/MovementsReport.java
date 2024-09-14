@@ -5,5 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public record MovementsReport(@JsonProperty("summary") List<ContainersProjection> quantityOfImportsAndExports, List<MovementsProjection> quantityOfMovements) {
+public record MovementsReport(@JsonProperty("summary") List<ContainersProjection> quantityOfImportsAndExports,
+                              List<MovementsProjection> quantityOfMovements) {
 }
