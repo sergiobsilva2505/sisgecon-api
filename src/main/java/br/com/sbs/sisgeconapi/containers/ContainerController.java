@@ -29,12 +29,12 @@ public class ContainerController {
     }
 
     @InitBinder("newContainerForm")
-    void initBinderNewContainerForm(WebDataBinder webDataBinder){
+    void initBinderNewContainerForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(newContainerFormValidator);
     }
 
     @InitBinder("updateContainerForm")
-    void initBinderUpdateContainerForm(WebDataBinder webDataBinder){
+    void initBinderUpdateContainerForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(updateContainerFormValidator);
     }
 

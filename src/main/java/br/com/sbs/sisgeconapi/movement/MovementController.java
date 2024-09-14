@@ -15,7 +15,7 @@ import java.net.URI;
 @RequestMapping("/movements")
 public class MovementController {
 
-   private final MovementService movementService;
+    private final MovementService movementService;
 
     public MovementController(MovementService movementService) {
         this.movementService = movementService;
@@ -23,7 +23,7 @@ public class MovementController {
 
     @PostMapping
     ResponseEntity<MovementView> createMovement(@Valid @RequestBody MovementForm movementForm) {
-        MovementView movementView =  movementService.create(movementForm);
+        MovementView movementView = movementService.create(movementForm);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(movementView.id()).toUri();
 
         return ResponseEntity.created(uri).body(movementView);
@@ -34,21 +34,21 @@ public class MovementController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "2") Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<MovementView> movements =  movementService.findAll(pageRequest);
+        Page<MovementView> movements = movementService.findAll(pageRequest);
 
         return ResponseEntity.ok(movements);
     }
 
     @GetMapping("/{id}")
     ResponseEntity<MovementView> getById(@PathVariable Long id) {
-        MovementView movementView =  movementService.findById(id);
+        MovementView movementView = movementService.findById(id);
 
         return ResponseEntity.ok(movementView);
     }
 
     @PutMapping("/{id}/finish")
     ResponseEntity<MovementView> finish(@PathVariable Long id) {
-        MovementView movementView =  movementService.finish(id);
+        MovementView movementView = movementService.finish(id);
 
         return ResponseEntity.ok(movementView);
     }

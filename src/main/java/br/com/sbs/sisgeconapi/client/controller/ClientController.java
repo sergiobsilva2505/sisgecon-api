@@ -30,12 +30,12 @@ public class ClientController {
     }
 
     @InitBinder("newClientForm")
-    void initBinderNewClientForm(WebDataBinder webDataBinder){
+    void initBinderNewClientForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(newClientFormValidator);
     }
 
     @InitBinder("updateClientForm")
-    void initBinderUpdateClientForm(WebDataBinder webDataBinder){
+    void initBinderUpdateClientForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(updateClientFormValidator);
     }
 
