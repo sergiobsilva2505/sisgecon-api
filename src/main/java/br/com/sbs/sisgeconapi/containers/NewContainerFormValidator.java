@@ -1,6 +1,7 @@
 package br.com.sbs.sisgeconapi.containers;
 
 import br.com.sbs.sisgeconapi.containers.dto.NewContainerForm;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -15,12 +16,12 @@ public class NewContainerFormValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(@NonNull Class<?> aClass) {
         return NewContainerForm.class.isAssignableFrom(aClass);
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NonNull Object target,@NonNull Errors errors) {
         NewContainerForm newContainerForm = (NewContainerForm) target;
 
         if (containerRepository.existsByNumber(newContainerForm.number())) {
